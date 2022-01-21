@@ -2,6 +2,14 @@ from module1 import*
 from tkinter import*
 from tkinter.messagebox import*
 
+oige=0
+
+def count(vst,vas):
+    global oige
+    vastus=vst.get()
+    if vastus==vas: 
+        oige+=1
+
 def sign():
     global passw,loginas
     f=open('users.txt', 'r')
@@ -67,44 +75,151 @@ def signup():
                     user.write(log+"\n")
                 with open("pswords.txt", "a") as pswrd:
                     pswrd.write(psword + "\n")
+                mathtest()
 
 def mathtest():
     math=Toplevel()
     Label(math,text="Vale tase",font="Calibri 26").grid(row=1,column=0,columnspan=3,sticky=N+S+W+E)
-    Label(text="Ülesandete arv: ").grid(row=0,column=0,columnspan=2)
-    kogus=Spinbox(math,from_=1,to=20).grid(row=0,column=1,columnspan=3)
-    kog=kogus.get()
-    tase1=Radiobutton(math,text="tase 1",font="Calibri 20",command=taseuks(kog))
+    Label(math,text="Ülesandete arv: ").grid(row=0,column=0,columnspan=2)
+    kogus_=Spinbox(math,from_=1,to=25)
+    kogus_.grid(row=0,column=2,columnspan=3)
+    kog=kogus_.get()
+    tase1=Button(math,text="tase 1",font="Calibri 20",command=lambda:tasekaks(kog,math))
     tase1.grid(row=2,column=0,sticky=N+S+W+E)
-    tase2=Radiobutton(math,text="tase 2",font="Calibri 20",command=tasekaks(kog))
+    tase2=Button(math,text="tase 2",font="Calibri 20",command=lambda:tasekaks(kog,math))
     tase2.grid(row=2,column=1,sticky=N+S+W+E)
-    tase3=Radiobutton(math,text="tase 3",font="Calibri 20",command=tasekolm(kog))
+    tase3=Button(math,text="tase 3",font="Calibri 20",command=lambda:tasekolm(kog,math))
     tase3.grid(row=2,column=2,sticky=N+S+W+E)
 
-def taseuks(a):
-    kog=a
+def taseuks(a,math):
+    global oige
+    #command=lambda:math.destroy()
+    kog=int(a)
     taseuksTk=Toplevel()
+    abc=Label(taseuksTk,text="",font="Arial 20")
+    abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
     for i in range (1,kog+1):
         arv1=randint(0,100)
         arv2=randint(0,100)
         tehe=randint(1,2)
         if tehe==1:
             mark="+"
-            Label(taseuksTk,text=arv1+mark+arv2+ "=").grid(row=0,column=0,columnspan=3)
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
             vas=arv1+arv2
         else:
             mark="-"
-            Label(taseuksTk,text=arv1+mark+arv2+ "=").grid(row=0,column=0,columnspan=3)
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
             vas=arv1-arv2
-        vst=Entry(taseuksTk,row=0,column=0)
-        vastus=vst.get()
-        if vastus==vas: oige+=1
+        vst=Entry(taseuksTk,width=3,font="Arial 20",fg="green",bg="lightblue")
+        vst.grid(row=0,column=3)
+        entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=count(vst,vas))
+        entr.grid(row=1,column=0,columnspan=4)
+    result=(oige/kog)*100
+    if result>=90:
+        hinne="5"
+    elif 75<=result<90:
+        hinne="4"
+    elif 60<=result<75:
+        hinne="3"
+    else:
+        hinne="2"
+    abc.destroy()
+    res=Label(taseuksTk,text="Sinu hinne on "+hinne+" result on "+round(result,0),font="Arial 20").grid(row=0,column=0)
 
-def tasekaks():
-    pass
 
-def tasekolm():
-    pass
+def tasekaks(a,math):
+    global oige
+    #command=lambda:math.destroy()
+    kog=int(a)
+    taseuksTk=Toplevel()
+    abc=Label(taseuksTk,text="",font="Arial 20")
+    abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
+    for i in range (1,kog+1):
+        arv1=randint(-100,100)
+        arv2=randint(-100,100)
+        tehe=randint(1,4)
+        if tehe==1:
+            mark="+"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1+arv2
+        elif tehe==2:
+            mark="-"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1-arv2
+        elif tehe==3:
+            mark="*"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1*arv2
+        else:
+            mark="/"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1/arv2
+        vst=Entry(taseuksTk,width=3,font="Arial 20",fg="green",bg="lightblue")
+        vst.grid(row=0,column=3)
+        entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=count(vst,vas))
+        entr.grid(row=1,column=0,columnspan=4)
+    result=(oige/kog)*100
+    if result>=90:
+        hinne="5"
+    elif 75<=result<90:
+        hinne="4"
+    elif 60<=result<75:
+        hinne="3"
+    else:
+        hinne="2"
+
+def tasekolm(a,math):
+    global oige
+    #command=lambda:math.destroy()
+    kog=int(a)
+    taseuksTk=Toplevel()
+    abc=Label(taseuksTk,text="",font="Arial 20")
+    abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
+    for i in range (1,kog+1):
+        arv1=randint(-200,200)
+        arv2=randint(-200,200)
+        tehe=randint(1,7)
+        if tehe==1:
+            mark="+"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1+arv2
+        elif tehe==2:
+            mark="-"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1-arv2
+        elif tehe==3:
+            mark="*"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1*arv2
+        elif tehe==4:
+            mark="//"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1//arv2
+        elif tehe==5:
+            mark="%"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1%arv2
+        elif tehe==6:
+            mark="**"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1**arv2
+        else:
+            mark="/"
+            abc.configure(text=str(arv1)+mark+str(arv2)+ "=")
+            vas=arv1/arv2
+        vst=Entry(taseuksTk,width=3,font="Arial 20",fg="green",bg="lightblue")
+        vst.grid(row=0,column=3)
+        entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=count(vst,vas))
+        entr.grid(row=1,column=0,columnspan=4)
+    result=(oige/kog)*100
+    if result>=90:
+        hinne="5"
+    elif 75<=result<90:
+        hinne="4"
+    elif 60<=result<75:
+        hinne="3"
+    else:
+        hinne="2"
 
 
 

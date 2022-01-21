@@ -70,7 +70,7 @@ def abcde():
                 print(f"{arv1} {mark} {arv2} =")
                 vas=arv1*arv2
             else:
-                tehe="/"
+                mark="/"
                 print(f"{arv1} {mark} {arv2} =")
                 vas=arv1/arv2
             vastus=int(input())
@@ -110,7 +110,8 @@ def abcde():
                 print(f"{arv1} {mark} {arv2} =")
                 vas=arv1/arv2
             vastus=int(input("Vastus= "))
-            if vastus==round(vas): oige+=1
+            if vastus==round(vas): 
+                oige+=1
     if (oige/kogus)*100>=90:
         hinne="5"
     elif 75<=(oige/kogus)*100<90:
