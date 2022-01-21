@@ -5,7 +5,8 @@ from tkinter.messagebox import*
 oige=0
 
 def count(vst,vas):
-    global oige
+    global oige,countclck
+    countclck+=1
     vastus=vst.get()
     if vastus==vas: 
         oige+=1
@@ -90,15 +91,16 @@ def mathtest():
     tase2.grid(row=2,column=1,sticky=N+S+W+E)
     tase3=Button(math,text="tase 3",font="Calibri 20",command=lambda:tasekolm(kog,math))
     tase3.grid(row=2,column=2,sticky=N+S+W+E)
-
+countclck=0
 def taseuks(a,math):
-    global oige,loginas
+    global oige,loginas,countclck
     #command=lambda:math.destroy()
     kog=int(a)
     taseuksTk=Toplevel()
     abc=Label(taseuksTk,text="",font="Arial 20")
     abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
-    for i in range (1,kog+1):
+    countclck=0
+    while countclck!=kog:
         arv1=randint(0,100)
         arv2=randint(0,100)
         tehe=randint(1,2)
