@@ -92,7 +92,7 @@ def mathtest():
     tase3.grid(row=2,column=2,sticky=N+S+W+E)
 
 def taseuks(a,math):
-    global oige
+    global oige,loginas
     #command=lambda:math.destroy()
     kog=int(a)
     taseuksTk=Toplevel()
@@ -125,10 +125,26 @@ def taseuks(a,math):
         hinne="2"
     abc.destroy()
     res=Label(taseuksTk,text="Sinu hinne on "+hinne+" result on "+round(result,0),font="Arial 20").grid(row=0,column=0)
+    if askyesno("result","Kas te tahate salvastada resultat failist"):
+        with open("resultFile.txt", "a") as user:
+             user.write(loginas.get()+"-"+result+"\n")
+    else:
+        pass
 
+def resulttable():
+    Result={}
+    with open("resultFile.txt","r") as f:
+	    for i in f: # создаем цикл по кол-ву строк
+		    k,v=i.strip().split("-") # отделяем слова на строчке в строчке по знаку "-"
+		    Capitals[k.strip()]=v.strip() # добавляем в словарь
+    table=""
+    table1=""
+    for key, value in Result.items():
+        table1=table+key+"-"+value+"\n"
+    print(table1)
 
 def tasekaks(a,math):
-    global oige
+    global oige,loginas
     #command=lambda:math.destroy()
     kog=int(a)
     taseuksTk=Toplevel()

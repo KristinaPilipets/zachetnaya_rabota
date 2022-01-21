@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pswords.txt" />
+    <Content Include="resultFile.txt" />
     <Content Include="users.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
