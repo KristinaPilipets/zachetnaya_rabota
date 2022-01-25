@@ -1,24 +1,10 @@
 from module1 import*
 from tkinter import*
 from tkinter.messagebox import*
-
-countclck=0
 oige=0
+countclck=0
 vas=0
 tex=""
-
-def count(vas,vst):
-    global countclck,oige
-    print(vas,vst)
-    countclck+=1
-    vastus=vst.get()
-    if vastus.isdigit()==True:
-        if float(vastus)==float(vas): 
-            oige+=1
-        else:
-            pass
-    else:
-        pass
 
 def sign():
     global passw,loginas
@@ -86,7 +72,7 @@ def signup():
                 with open("pswords.txt", "a") as pswrd:
                     pswrd.write(psword + "\n")
                 mathtest()
-
+    
 def mathtest():
     math=Toplevel()
     Label(math,text="Vale tase",font="Calibri 26").grid(row=1,column=0,columnspan=3,sticky=N+S+W+E)
@@ -106,12 +92,13 @@ def resulttable():
     with open("resultFile.txt","r") as f:
         for i in f: # создаем цикл по кол-ву строк
             k,v=i.strip().split("-") # отделяем слова на строчке в строчке по знаку "-"
-            Capitals[k.strip()]=v.strip() # добавляем в словарь
+            Result[k.strip()]=v.strip() # добавляем в словарь
     table=""
     table1=""
     for key, value in Result.items():
         table1=table+key+"-"+value+"\n"
-    print(table1)
+    ta=Toplevel()
+    table=Label(ta,text=table1,font="Arial 26").grid(row=0,column=0)
 
 def exce(tase:int):
     if tase==1:
@@ -184,15 +171,12 @@ def exce(tase:int):
     return vastt,text
 
 def taseexc(tase,math):
-    global countclck,taseuksTk,vas,tex
+    global taseuksTk,vas,tex    
     math.destroy()
-    taseuksTk=Toplevel()
-    countclck=-1
-    oige=0        
+    taseuksTk=Toplevel()   
     vst=Entry(taseuksTk,width=3,font="Arial 20",fg="green",bg="lightblue")
     vst.grid(row=0,column=3)
-    vas,tex=exce(tase)
-    abc=Label(taseuksTk,text=tex,font="Arial 20")
+    abc=Label(taseuksTk,text="",font="Arial 20")
     abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
     entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=lambda:newlah(abc,tase))
     entr.grid(row=1,column=0,columnspan=4)
@@ -200,8 +184,22 @@ def taseexc(tase,math):
     end=Button(taseuksTk,text="Lõpetama",font="Arial 20",command=lambda:lopetama(tase))
     end.grid(row=3,column=0,columnspan=4)
 
+def count(vas,vst):
+    global oige,countclck
+    print(vas,vst.get(),countclck,oige)
+    countclck+=1
+    vastus=vst.get()
+    if vastus.isdigit()==True:
+        if float(vastus)==float(vas): 
+            oige+=1
+        else:
+            pass
+    else:
+        pass
+    print(vas,vst.get(),countclck,oige)
+
 def newlah(abc,tase):
-    global taseuksTk
+    global taseuksTk,vas
     vas,tex=exce(tase)
     abc.destroy()
     ab=Label(taseuksTk,text=tex,font="Arial 20")
@@ -209,11 +207,11 @@ def newlah(abc,tase):
 
 def lopetama(tase:int):
     global loginas,oige,countclck
+    taseuksTk.destroy()
     if oige==0 or countclck==0:
         result=0
     else:
         result=oige/countclck*100
-
     if result>=90:
         hinne="5"
     elif 75<=result<90:
@@ -226,7 +224,11 @@ def lopetama(tase:int):
     res=Label(taseuTk,text="Sinu hinne on "+hinne+" result on "+str(round(result,0)),font="Arial 20").grid(row=0,column=0)
     if askyesno("result","Kas te tahate salvastada resultat failist"):
         with open("resultFile.txt", "a") as user:
-                user.write(loginas.get()+"-"+str(round(result,2))+str(tase)+" "+"ülisanded arv-"+str(countclck)+"\n")
+                user.write(loginas.get()+"-"+str(round(result,0))+"%"+" "+str(tase)+" "+"ülisanded arv: "+str(countclck)+"\n")
+    else:
+        pass
+    if askyesno("resultat","Kas te tahate näha teiste reultatid?"):
+        resulttable()
     else:
         pass
 
