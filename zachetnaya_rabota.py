@@ -9,6 +9,7 @@ tex=""
 
 def count(vas,vst):
     global countclck,oige
+    print(vas,vst)
     countclck+=1
     vastus=vst.get()
     if vastus.isdigit()==True:
