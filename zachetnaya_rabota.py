@@ -16,7 +16,7 @@ def sign():
     login=loginas.get()
     if login not in userslist:
         newwd=Toplevel() #tk()
-        Label(newwd,text="Kasutaja ei ole olema, palun regestreerida",font="Calibri 20").grid(row=0,column=0)
+        Label(newwd,text="Kasutaja ei ole olema, palun regestreerida",font="Arial 15").grid(row=0,column=0)
     else:
         pswords1 = open('pswords.txt', 'r')
         pswords=[]
@@ -26,11 +26,11 @@ def sign():
         pswor=passw.get()
         if pswor not in pswords:
             neww=Toplevel() #tk()
-            Label(neww,text="Vale parool, proovi uuesti",font="Calibri 20").grid(row=0,column=0)
+            Label(neww,text="Vale parool, proovi uuesti",font="Arial 15").grid(row=0,column=0)
         else:
             if userslist.index(login) != pswords.index(pswor):
                 newwo=Toplevel()
-                Label(newwo,text="Vale parool või kasutaja nimi, proovi uuesti",font="Calibri 20").grid(row=0,column=0)
+                Label(newwo,text="Vale parool või kasutaja nimi, proovi uuesti",font="Arial 15").grid(row=0,column=0)
             else:
                 mathtest()
 
@@ -45,10 +45,10 @@ def signup():
     if askyesno("Parool","Kas sa tahad kasutada automaatseltloomatud parool?"):
         pswordA=autopsword()
         msg=Toplevel()
-        if log in users or log=="" or log==" ":
-            Label(msg,text="See kasutaja nimi on võetud või vali",font="Calibri 20").grid(row=0,column=0)
+        if log in users or log=="" or log==" " or len(log)<=4:
+            Label(msg,text="See kasutaja nimi on võetud või vale",font="Arial 15").grid(row=0,column=0)
         else:
-            Label(msg,text="sinu parool: "+pswordA+"\n"+"sinu login: "+log,font="Calibri 20").grid(row=0,column=0)
+            Label(msg,text="sinu parool: "+pswordA+"\n"+"sinu login: "+log,font="Arial 15").grid(row=0,column=0)
             with open("users.txt", "a") as user:
                 user.write(log+"\n")
             with open("pswords.txt", "a") as pswrd:
@@ -63,7 +63,7 @@ def signup():
              Label(no,text="Parool ei sobi",font="Calibri 20").grid(row=0,column=0)
          else:
             msg=Toplevel()
-            if log in users or log=="" or log==" ":
+            if log in users or log=="" or log==" " or len(log)<=4:
                 Label(msg,text="See kasutaja nimi on võetud või vali",font="Calibri 20").grid(row=0,column=0)
             else:
                 Label(msg,text="sinu parool: "+pswordA+"\n"+"sinu login: "+log,font="Calibri 20").grid(row=0,column=0)
@@ -174,9 +174,9 @@ def taseexc(tase,math):
     global taseuksTk,vas,tex    
     math.destroy()
     taseuksTk=Toplevel()   
-    vst=Entry(taseuksTk,width=3,font="Arial 20",fg="green",bg="lightblue")
+    vst=Entry(taseuksTk,width=5,font="Arial 20",fg="green",bg="lightblue")
     vst.grid(row=0,column=3)
-    abc=Label(taseuksTk,text="",font="Arial 20")
+    abc=Label(taseuksTk,text="",font="Arial 20",width=10)
     abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
     entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=lambda:newlah(abc,tase))
     entr.grid(row=1,column=0,columnspan=4)
@@ -201,9 +201,7 @@ def count(vas,vst):
 def newlah(abc,tase):
     global taseuksTk,vas
     vas,tex=exce(tase)
-    abc.destroy()
-    ab=Label(taseuksTk,text=tex,font="Arial 20")
-    ab.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
+    abc.configure(text=tex)
 
 def lopetama(tase:int):
     global loginas,oige,countclck
@@ -224,7 +222,7 @@ def lopetama(tase:int):
     res=Label(taseuTk,text="Sinu hinne on "+hinne+" result on "+str(round(result,0)),font="Arial 20").grid(row=0,column=0)
     if askyesno("result","Kas te tahate salvastada resultat failist"):
         with open("resultFile.txt", "a") as user:
-                user.write(loginas.get()+"-"+str(round(result,0))+"%"+" "+str(tase)+" "+"ülisanded arv: "+str(countclck)+"\n")
+                user.write(loginas.get()+"-"+str(round(result,0))+"%"+" "+" tase: "+str(tase)+" ülisanded arv: "+str(countclck)+"\n")
     else:
         pass
     if askyesno("resultat","Kas te tahate näha teiste reultatid?"):
@@ -236,16 +234,16 @@ def lopetama(tase:int):
 wind=Tk()
 wind.title("login ja mateematika")
 
-Label(wind,text="login: ",fg="black").grid(row=1,column=0,sticky=N+S+W+E)
+Label(wind,text="login: ",fg="black",font="Arial 17").grid(row=1,column=0,sticky=N+S+W+E)
 loginas=Entry(wind,bg="lightblue")
 loginas.grid(row=1,column=2,columnspan=6,sticky=N+S+W+E)
-Label(wind,text="parool: ").grid(row=2,column=0,sticky=N+S+W+E)
+Label(wind,text="parool: ",font="Arial 17").grid(row=2,column=0,sticky=N+S+W+E)
 passw=Entry(wind,bg="lightblue")
 passw.grid(row=2,column=2,columnspan=6,sticky=N+S+W+E)
-pres=Button(wind,text="Sise",command=sign)
+pres=Button(wind,text="Sise",font="Arial 15",command=sign)
 pres.grid(row=3,column=3,columnspan=4,sticky=N+S+W+E)
 
-reg=Button(wind,text="regestreerimine",fg="black",command=signup)
+reg=Button(wind,text="regestreerimine",font="Arial 15",fg="black",command=signup)
 reg.grid(row=5,column=2,columnspan=6,sticky=N+S+W+E)
 
 wind.mainloop()
