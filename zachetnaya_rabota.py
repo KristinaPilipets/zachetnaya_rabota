@@ -7,9 +7,8 @@ oige=0
 vas=0
 tex=""
 
-count=lambda vas,vst:
+def count(vas,vst):
     global countclck,oige
-    print(vas,vst)
     countclck+=1
     vastus=vst.get()
     if vastus.isdigit()==True:
@@ -196,7 +195,7 @@ def taseexc(tase,math):
     abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
     entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=lambda:newlah(abc,tase))
     entr.grid(row=1,column=0,columnspan=4)
-    vst.bind("<Return>",count(vas,vst))
+    vst.bind("<Return>",lambda abcd:count(vas,vst))
     end=Button(taseuksTk,text="Lõpetama",font="Arial 20",command=lambda:lopetama(tase))
     end.grid(row=3,column=0,columnspan=4)
 
