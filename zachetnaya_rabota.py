@@ -94,11 +94,12 @@ def resulttable():
             k,v=i.strip().split("-") # отделяем слова на строчке в строчке по знаку "-"
             Result[k.strip()]=v.strip() # добавляем в словарь
     table=""
-    table1=""
+    table1=[]
     for key, value in Result.items():
-        table1=table+key+"-"+value+"\n"
+        table=key+"-"+value+"\n"
+        table1.append(table)
     ta=Toplevel()
-    table=Label(ta,text=table1,font="Arial 26").grid(row=0,column=0)
+    table=Label(ta,text="".join(table1),font="Arial 26").grid(row=0,column=0)
 
 def exce(tase:int):
     if tase==1:
@@ -163,16 +164,18 @@ def exce(tase:int):
             mark="/"
             text=str(arv1)+mark+str(arv2)+ "="
             vast=arv1/arv2
-    vastt=round(vast,2)
+    vastt=round(vast,0)
     return vastt,text
 
 def taseexc(tase,math):
-    global taseuksTk,vas,tex    
+    global taseuksTk,vas,tex,oige    
     math.destroy()
     taseuksTk=Toplevel()   
     vst=Entry(taseuksTk,width=5,font="Arial 20",fg="green",bg="lightblue")
     vst.grid(row=0,column=3)
     abc=Label(taseuksTk,text="",font="Arial 20",width=10)
+    vas,tex=exce(tase)
+    abc.configure(text=tex)
     abc.grid(row=0,column=0,columnspan=3,sticky=N+S+W+E)
     entr=Button(taseuksTk,text="Edasi",font="Arial 20",command=lambda:newlah(abc,tase))
     entr.grid(row=1,column=0,columnspan=4)
@@ -181,12 +184,11 @@ def taseexc(tase,math):
     end.grid(row=3,column=0,columnspan=4)
 
 def count(vas,vst):
-    global oige,countclck
-    print(vas,vst.get(),countclck,oige)
+    global countclck,oige
     countclck+=1
     vastus=vst.get()
     if vastus.isdigit()==True:
-        if float(vastus)==float(vas): 
+        if int(vas)==int(vastus): 
             oige+=1
         else:
             pass
@@ -195,7 +197,7 @@ def count(vas,vst):
     print(vas,vst.get(),countclck,oige)
 
 def newlah(abc,tase):
-    global taseuksTk,vas
+    global taseuksTk,vas,countclck
     vas,tex=exce(tase)
     abc.configure(text=tex)
 
