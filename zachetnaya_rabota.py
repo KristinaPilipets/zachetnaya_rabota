@@ -46,7 +46,7 @@ def signup():
         pswordA=autopsword()
         msg=Toplevel()
         if log in users or log=="" or log==" " or len(log)<=4:
-            Label(msg,text="See kasutaja nimi on võetud või vale",font="Arial 15").grid(row=0,column=0)
+            Label(msg,text="See kasutaja nimi on võetud või vale (min 4 sümbolid)",font="Arial 15").grid(row=0,column=0)
         else:
             Label(msg,text="sinu parool: "+pswordA+"\n"+"sinu login: "+log,font="Arial 15").grid(row=0,column=0)
             with open("users.txt", "a") as user:
