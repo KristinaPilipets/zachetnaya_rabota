@@ -138,7 +138,7 @@ def exce(tase:int):
     else:
         arv1=randint(-200,200)
         arv2=randint(-200,200)
-        tehe=randint(1,7)
+        tehe=randint(1,6)
         if tehe==1:
             mark="+"
             text=str(arv1)+mark+str(arv2)+ "="
@@ -159,10 +159,6 @@ def exce(tase:int):
             mark="%"
             text=str(arv1)+mark+str(arv2)+ "="
             vast=arv1%arv2
-        elif tehe==6:
-            mark="**"
-            text=str(arv1)+mark+str(arv2)+ "="
-            vast=arv1**arv2
         else:
             mark="/"
             text=str(arv1)+mark+str(arv2)+ "="
